@@ -140,16 +140,18 @@ body {
 
 </head>
 <body>
+
+
 <header data-bs-theme="dark">
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Hover</a>
+      <a class="navbar-brand" href="index.jsp">Home</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse d-flex justify-content-end gap-2" id="navbarCollapse">
           <a class="btn btn-light"  href="login.jsp">Login</a>
-          <button class="btn btn-outline-light" type="submit">Cadastre-se</button>
+           <a href="formulario.jsp" class="btn btn-outline-light">Cadastro</a>
       </div>
     </div>
   </nav>

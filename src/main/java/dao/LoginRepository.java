@@ -15,7 +15,7 @@ public class LoginRepository {
 	}
 	
 	public boolean validarLogin(Usuario usuario01) throws Exception {
-		String sql = "SELECT * FROM user WHERE login = ? and senha = ?";
+		String sql = "SELECT * FROM usuario WHERE email = ? and senha = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, usuario01.getUsuario());
 		stmt.setString(2, usuario01.getSenha());
@@ -23,9 +23,8 @@ public class LoginRepository {
 		ResultSet rst = stmt.executeQuery();
 		if (rst.next()) {
 			return true;
-			//usuario e senha batem com o que está no banco, pode efetuar o login do usuário
 		}
 		return false;
-		//usuario e senha incorretos, não pode efetuar o login do usuário		
+				
 	}
 }

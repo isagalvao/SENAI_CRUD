@@ -24,7 +24,7 @@ public class ServletLogin extends HttpServlet {
 		String acao = request.getParameter("acao");
 		
 		if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
-			request.getSession().invalidate(); //encerro a sessão
+			request.getSession().invalidate();
 			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
 			redirecionar.forward(request, response);
 		}else {
@@ -44,7 +44,7 @@ public class ServletLogin extends HttpServlet {
 				user01.setUsuario(usuario);
 				user01.setSenha(senha);
 				
-				/*if (user01.getUsuario().equals("admin") && user01.getSenha().equals("admin")) {*/
+				
 				if (loginRepository.validarLogin(user01)) {
 					request.getSession().setAttribute("usuario", user01.getUsuario());
 					if (url == null || url.equals("null")) {
@@ -54,20 +54,20 @@ public class ServletLogin extends HttpServlet {
 					redirecionar.forward(request, response);
 				}
 				else {
-					//instaciei um objeto
+				
 					RequestDispatcher redireciona = request.getRequestDispatcher("/login.jsp");
 					request.setAttribute("mensagem", "Usuário ou Senha incorretos!");
 					redireciona.forward(request, response);
 				}			
 			}
 			else {
-				//instaciei um objeto
+	
 				RequestDispatcher redireciona = request.getRequestDispatcher("/login.jsp");
 				request.setAttribute("mensagem", "Informe o Usuário e Senha corretamente!");
 				redireciona.forward(request, response);
 			}
 		}catch (Exception e) {
-			// TODO: handle exception
+
 			e.printStackTrace();
 		}
 	}

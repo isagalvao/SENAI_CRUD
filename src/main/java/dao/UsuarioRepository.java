@@ -26,7 +26,7 @@ public class UsuarioRepository {
 			
 			conn.commit();	
 		}else {
-			String sql = "UPDATE user SET login=?, senha=? WHERE id = "+objeto.getId()+";";
+			String sql = "UPDATE user SET email=?, senha=? WHERE id = "+objeto.getId()+";";
 			
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
