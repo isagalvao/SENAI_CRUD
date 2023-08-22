@@ -42,7 +42,7 @@ public class ServletLogin extends HttpServlet {
 			if (usuario != null && !usuario.isEmpty() && senha != null && !senha.isEmpty()) {
 				Usuario user01 = new Usuario();
 				user01.setUsuario(usuario);
-				user01.setSenha(senha);
+				user01.setPassword(senha);
 				
 				
 				if (loginRepository.validarLogin(user01)) {

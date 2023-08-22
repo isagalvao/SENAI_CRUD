@@ -152,6 +152,7 @@ body {
       <div class="collapse navbar-collapse d-flex justify-content-end gap-2" id="navbarCollapse">
           <a class="btn btn-light"  href="login.jsp">Login</a>
            <a href="formulario.jsp" class="btn btn-outline-light">Cadastro</a>
+           <a href="listaUsuarios.jsp" class="btn btn-outline-light">Lista</a>
       </div>
     </div>
   </nav>

@@ -21,9 +21,23 @@ public class ConexaoBanco {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            
+            // Desativar o autocommit
+            conn.setAutoCommit(false);
+            
         } catch (ClassNotFoundException | SQLException e) {
            System.out.println("Não conectou.");
             e.printStackTrace();
+        }
+    }
+    
+    public static void fecharConexao(Connection conn) {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

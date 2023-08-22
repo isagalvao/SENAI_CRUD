@@ -124,6 +124,7 @@ html, body {
       <div class="collapse navbar-collapse d-flex justify-content-end gap-2" id="navbarCollapse">
           <a class="btn btn-light"  href="login.jsp">Login</a>
           <a href="formulario.jsp" class="btn btn-outline-light">Cadastre-se</a>
+           <a href="listaUsuarios.jsp" class="btn btn-outline-light">Lista</a>
       </div>
     </div>
   </nav>
@@ -148,6 +149,7 @@ html, body {
 			<button class="btn btn-outline-dark w-100 py-2" type="submit">Entrar</button>
 						<a href="index.jsp" class="btn btn-dark w-100 py-2 mt-2" role="button"
 				aria-disabled="true">Home</a>
+				   <a href="formulario.jsp" class="btn btn-dark w-100 py-2 mt-2" role="button">Cadastro</a>
 				<p>${mensagem}</p>
 		</form>
 		

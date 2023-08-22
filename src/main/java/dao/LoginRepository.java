@@ -15,10 +15,10 @@ public class LoginRepository {
 	}
 	
 	public boolean validarLogin(Usuario usuario01) throws Exception {
-		String sql = "SELECT * FROM usuario WHERE email = ? and senha = ?";
+		String sql = "SELECT * FROM usuario WHERE email = ? and password = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, usuario01.getUsuario());
-		stmt.setString(2, usuario01.getSenha());
+		stmt.setString(2, usuario01.getPassword());
 		
 		ResultSet rst = stmt.executeQuery();
 		if (rst.next()) {

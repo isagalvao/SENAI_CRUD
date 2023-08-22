@@ -28,28 +28,42 @@
                     Class.forName("com.mysql.jdbc.Driver");
                     Connection connection = DriverManager.getConnection(jdbcUrl, user, password);
 
-                    // Inserindo os dados na tabela
-                    String insertQuery = "INSERT INTO usuario (nome, password, email, sexo, pais) VALUES (?, ?, ?, ?, ?)";
-                    PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-                    preparedStatement.setString(1, nome);
-                    preparedStatement.setString(2, senha);
-                    preparedStatement.setString(3, email);
-                    preparedStatement.setString(4, sexo);
-                    preparedStatement.setString(5, pais);
+                    // Verificar se o email já existe no banco
+                    String verificaEmailQuery = "SELECT COUNT(1) AS EXISTE FROM usuario WHERE email = ?";
+                    PreparedStatement verificaEmailStmt = connection.prepareStatement(verificaEmailQuery);
+                    verificaEmailStmt.setString(1, email);
+                    ResultSet verificaEmailResult = verificaEmailStmt.executeQuery();
 
-                    preparedStatement.executeUpdate();
+                    verificaEmailResult.next();
+                    boolean emailJaExiste = verificaEmailResult.getInt("EXISTE") > 0;
 
-                    // Fechando a conexão
-                    preparedStatement.close();
+                    if (emailJaExiste) {
+                        out.println("<div class=\"alert alert-danger\" role=\"alert\">");
+                        out.println("<h4 class=\"alert-heading\">Erro no cadastro:</h4>");
+                        out.println("<p>O email já está cadastrado.</p>");
+                        out.println("</div>");
+                    } else {
+                        // Inserindo os dados na tabela
+                        String insertQuery = "INSERT INTO usuario (nome, password, email, sexo, pais) VALUES (?, ?, ?, ?, ?)";
+                        PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                        preparedStatement.setString(1, nome);
+                        preparedStatement.setString(2, senha);
+                        preparedStatement.setString(3, email);
+                        preparedStatement.setString(4, sexo);
+                        preparedStatement.setString(5, pais);
+
+                        preparedStatement.executeUpdate();
+
+                        out.println("<div class=\"alert alert-success\" role=\"alert\">");
+                        out.println("<h4 class=\"alert-heading\">Cadastro realizado com sucesso!</h4>");
+                        out.println("</div>");
+
+                        preparedStatement.close();
+                    }
+
+                    verificaEmailStmt.close();
                     connection.close();
-
-                 
-                    out.println("<div class=\"alert alert-success\" role=\"alert\">");
-                    out.println("<h4 class=\"alert-heading\">Cadastro realizado com sucesso!</h4>");
-                    out.println("</div>");
-
                 } catch (Exception e) {
-                 
                     out.println("<div class=\"alert alert-danger\" role=\"alert\">");
                     out.println("<h4 class=\"alert-heading\">Ocorreu um erro:</h4>");
                     out.println("<p>" + e.getMessage() + "</p>");
@@ -58,7 +72,7 @@
                 }
             %>
 
-            <a href="index.jsp" class="btn btn-primary">Voltar</a>
+            <a href="formulario.jsp" class="btn btn-primary">Voltar</a>
         </div>
     </div>
 </div>

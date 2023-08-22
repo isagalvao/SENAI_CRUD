@@ -11,50 +11,68 @@ import java.io.IOException;
 
 import dao.UsuarioRepository;
 
-//@WebServlet("/ServletUsuario")
 public class ServletUsuario extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private UsuarioRepository userRepository = new UsuarioRepository();	
+    private UsuarioRepository userRepository = new UsuarioRepository();
+
     public ServletUsuario() {
 
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	}
+    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			String mensagem = "Cadastro Realizado com Sucesso!!";
-			String usuario = request.getParameter("usuario");
-			String senha = request.getParameter("senha");
-			
-			Usuario user01 = new Usuario();
-			
-			user01.setUsuario(usuario);
-			user01.setSenha(senha);
-			
-			if (userRepository.vericaUsuario(user01.getUsuario()) && user01.getId() == null) {
-				mensagem = "Usuário já cadastrado, informe outro usuário!!!";
-			}else {
-				if (user01.ehNovo()) {
-					mensagem = "Gravado com Sucesso!!";
-				}else {
-					mensagem = "Atualizado com Sucesso!!";
-				}
-				user01 = userRepository.insereUsuario(user01);
-			}
-			request.setAttribute("mensagem", mensagem);
-			request.setAttribute("user01", user01);
-			request.getRequestDispatcher("painel/cadastro.jsp").forward(request, response);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			RequestDispatcher redireciona = request.getRequestDispatcher("error.jsp");
-			request.setAttribute("mensagem", e.getMessage());
-			redireciona.forward(request, response);
-		}
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String mensagem = "";
+            String acao = request.getParameter("acao");
+            Usuario user01 = new Usuario();
+            if (acao != null && acao.equals("excluir")) {
+                Long idExcluir = Long.parseLong(request.getParameter("idExcluir"));
+                boolean excluidoComSucesso = userRepository.excluirUsuario(idExcluir);
 
+                if (excluidoComSucesso) {
+                    mensagem = "Usuário excluído com sucesso!";
+                } else {
+                    mensagem = "Erro ao excluir o usuário.";
+                }
+            } else {
+                String usuario = request.getParameter("usuario");
+                String password = request.getParameter("senha");
+
+                user01.setUsuario(usuario);
+                user01.setPassword(password);
+
+                if (userRepository.vericaUsuarioPorEmail(user01.getUsuario()) && user01.getId() == null) {
+                    mensagem = "Usuário já cadastrado, informe outro usuário!!!";
+                } else {
+                    if (user01.ehNovo()) {
+                        mensagem = "Gravado com Sucesso!!";
+                    } else {
+                        mensagem = "Atualizado com Sucesso!!";
+                     
+                        String nome = request.getParameter("nome");
+                        String email = request.getParameter("email");
+                        String pais = request.getParameter("pais");
+                        user01.setNome(nome);
+                        user01.setEmail(email);
+                        user01.setPais(pais);
+                        userRepository.editarUsuario(user01.getId(), nome, email, pais);
+                    }
+                    user01 = userRepository.insereUsuario(user01);
+                }
+            }
+
+            request.setAttribute("mensagem", mensagem);
+            request.setAttribute("user01", user01);
+            request.getRequestDispatcher("painel/cadastro.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            RequestDispatcher redireciona = request.getRequestDispatcher("error.jsp");
+            request.setAttribute("mensagem", e.getMessage());
+            redireciona.forward(request, response);
+        }
+    }
 }

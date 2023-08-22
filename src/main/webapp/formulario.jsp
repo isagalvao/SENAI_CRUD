@@ -16,22 +16,22 @@
             <!-- Removido o campo ID -->
 
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome:</label>
+                <label for="nome" class="form-label d-flex w-100">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" required>
             </div>
 
             <div class="mb-3">
-                <label for="senha" class="form-label">Senha:</label>
+                <label for="senha" class="form-label d-flex w-100">Senha:</label>
                 <input type="password" class="form-control" id="senha" name="senha" required>
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
+                <label for="email" class="form-label d-flex w-100">Email:</label>
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
 
             <div class="mb-3">
-                <label for="sexo" class="form-label">Sexo:</label>
+                <label for="sexo" class="form-label d-flex w-100">Sexo:</label>
                 <select class="form-select" id="sexo" name="sexo">
                     <option value="masculino">Masculino</option>
                     <option value="feminino">Feminino</option>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="pais" class="form-label">País:</label>
+                <label for="pais" class="form-label d-flex w-100">País:</label>
                 <select class="form-select" id="pais" name="pais">
                     <option value="brasil">Brasil</option>
                     <option value="eua">Estados Unidos</option>
