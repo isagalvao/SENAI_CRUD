@@ -10,66 +10,65 @@ import model.Usuario;
 
 import java.io.IOException;
 import dao.LoginRepository;
+import dao.UsuarioRepository;
 
 @WebServlet("/ServletOi")
 public class ServletLogin extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private LoginRepository loginRepository = new LoginRepository();
-	
+    private LoginRepository loginRepository = new LoginRepository();
+    private UsuarioRepository usuarioRepository = new UsuarioRepository();
+
     public ServletLogin() {
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String acao = request.getParameter("acao");
-		
-		if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
-			request.getSession().invalidate();
-			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
-			redirecionar.forward(request, response);
-		}else {
-			doPost(request, response);
-		}
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String acao = request.getParameter("acao");
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usuario = request.getParameter("usuario");
-		String senha = request.getParameter("senha");
-		String url = request.getParameter("url");
-		
-		try {
-		
-			if (usuario != null && !usuario.isEmpty() && senha != null && !senha.isEmpty()) {
-				Usuario user01 = new Usuario();
-				user01.setUsuario(usuario);
-				user01.setPassword(senha);
-				
-				
-				if (loginRepository.validarLogin(user01)) {
-					request.getSession().setAttribute("usuario", user01.getUsuario());
-					if (url == null || url.equals("null")) {
-						url = "painel/inicio.jsp";
-					}
-					RequestDispatcher redirecionar = request.getRequestDispatcher(url);
-					redirecionar.forward(request, response);
-				}
-				else {
-				
-					RequestDispatcher redireciona = request.getRequestDispatcher("/login.jsp");
-					request.setAttribute("mensagem", "Usuário ou Senha incorretos!");
-					redireciona.forward(request, response);
-				}			
-			}
-			else {
-	
-				RequestDispatcher redireciona = request.getRequestDispatcher("/login.jsp");
-				request.setAttribute("mensagem", "Informe o Usuário e Senha corretamente!");
-				redireciona.forward(request, response);
-			}
-		}catch (Exception e) {
+        if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("logout")) {
+            request.getSession().invalidate();
+            RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
+            redirecionar.forward(request, response);
+        } else {
+            doPost(request, response);
+        }
+    }
 
-			e.printStackTrace();
-		}
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String usuario = request.getParameter("usuario");
+        String senha = request.getParameter("senha");
+        String url = request.getParameter("url");
 
+        try {
+
+            if (usuario != null && !usuario.isEmpty() && senha != null && !senha.isEmpty()) {
+                Usuario user01 = new Usuario();
+                user01.setUsuario(usuario);
+                user01.setPassword(senha);
+
+                if (loginRepository.validarLogin(user01)) {
+                    request.getSession().setAttribute("usuario", user01.getUsuario());
+
+                    String nomeUsuario = usuarioRepository.obterNomeUsuario(user01.getUsuario());
+                    request.getSession().setAttribute("nomeUsuario", nomeUsuario);
+
+                    if (url == null || url.equals("null")) {
+                        url = "painel/inicio.jsp";
+                    }
+                    RequestDispatcher redirecionar = request.getRequestDispatcher(url);
+                    redirecionar.forward(request, response);
+                } else {
+                    RequestDispatcher redireciona = request.getRequestDispatcher("/login.jsp");
+                    request.setAttribute("mensagem", "Usuário ou Senha incorretos!");
+                    redireciona.forward(request, response);
+                }
+            } else {
+                RequestDispatcher redireciona = request.getRequestDispatcher("/login.jsp");
+                request.setAttribute("mensagem", "Informe o Usuário e Senha corretamente!");
+                redireciona.forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

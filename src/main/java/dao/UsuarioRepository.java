@@ -22,7 +22,7 @@ public class UsuarioRepository {
 	    List<Usuario> usuarios = new ArrayList<>();
 
 	    try {
-	        String sql = "SELECT nome, email, pais FROM usuarios";
+	        String sql = "SELECT nome, email, pais, password FROM usuarios";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        ResultSet rs = stmt.executeQuery();
 
@@ -31,6 +31,7 @@ public class UsuarioRepository {
 	            usuario.setNome(rs.getString("nome")); //
 	            usuario.setEmail(rs.getString("email"));
 	            usuario.setPais(rs.getString("pais"));
+	            usuario.setPassword(rs.getString("password"));
 	            usuarios.add(usuario);
 	            
 	            
@@ -113,13 +114,13 @@ public class UsuarioRepository {
 	    return res.getBoolean("EXISTE");
 	}
 	
-	public boolean editarUsuario(Long id, String nome, String email, String pais) {
+	public boolean editarUsuario(Long id, String nome, String email, String password) {
 	    try {
-	        String sql = "UPDATE usuarios SET nome = ?, email = ?, pais = ? WHERE id = ?";
+	        String sql = "UPDATE usuarios SET nome = ?, email = ?, password = ? WHERE id = ?";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        stmt.setString(1, nome);
 	        stmt.setString(2, email);
-	        stmt.setString(3, pais);
+	        stmt.setString(3, password);
 	        stmt.setLong(4, id);
 
 	        int rowsAffected = stmt.executeUpdate();
@@ -129,4 +130,25 @@ public class UsuarioRepository {
 	        return false;
 	    }
 	}
+	
+	public String obterNomeUsuario(String usuario) {
+	    String nomeUsuario = null;
+	    try {
+	        String sql = "SELECT nome FROM usuario WHERE nome = ?";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, usuario);
+	        ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            nomeUsuario = rs.getString("nome");
+	        }
+	        
+	        stmt.close(); // Importante fechar o PreparedStatement após o uso
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return nomeUsuario;
+	}
+
+	
 }

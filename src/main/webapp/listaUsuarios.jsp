@@ -15,12 +15,11 @@
 dao.UsuarioRepository userRepository = new dao.UsuarioRepository();
 java.util.List<model.Usuario> usuarios = userRepository.buscarTodosUsuarios();
 
-// Imprimir a lista de usuários no console do navegador
 for (model.Usuario usuario : usuarios) {
-    System.out.println("Nome: " + usuario.getNome());
-    System.out.println("Email: " + usuario.getEmail());
-    System.out.println("País: " + usuario.getPais());
-    System.out.println("------------------------");
+    out.println("Nome: " + usuario.getNome() + "<br>");
+    out.println("Email: " + usuario.getEmail() + "<br>");
+    out.println("País: " + usuario.getPais() + "<br>");
+    out.println("------------------------<br>");
 }
 %>
 
