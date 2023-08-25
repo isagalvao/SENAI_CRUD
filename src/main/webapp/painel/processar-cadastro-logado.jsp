@@ -12,14 +12,14 @@
     <div class="card bg-dark text-white">
         <div class="card-body">
             <%
-                // Recebendo os valores do formulário
+               
                 String nome = request.getParameter("nome");
                 String senha = request.getParameter("senha");
                 String email = request.getParameter("email");
                 String sexo = request.getParameter("sexo");
                 String pais = request.getParameter("pais");
 
-                // Conexão com o banco de dados
+             
                 String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/crudjspjava?useSSL=false";
                 String user = "root";
                 String password = "Senai666";
@@ -28,7 +28,7 @@
                     Class.forName("com.mysql.jdbc.Driver");
                     Connection connection = DriverManager.getConnection(jdbcUrl, user, password);
 
-                    // Verificar se o email já existe no banco
+                  
                     String verificaEmailQuery = "SELECT COUNT(1) AS EXISTE FROM usuario WHERE email = ?";
                     PreparedStatement verificaEmailStmt = connection.prepareStatement(verificaEmailQuery);
                     verificaEmailStmt.setString(1, email);
@@ -43,7 +43,7 @@
                         out.println("<p>O email já está cadastrado.</p>");
                         out.println("</div>");
                     } else {
-                        // Inserindo os dados na tabela
+                       
                         String insertQuery = "INSERT INTO usuario (nome, password, email, sexo, pais) VALUES (?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
                         preparedStatement.setString(1, nome);

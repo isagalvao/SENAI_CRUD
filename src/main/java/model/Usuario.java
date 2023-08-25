@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    private Long id;
+    private int id;
     private String usuario;
     private String password;
     private String nome;
@@ -13,18 +13,13 @@ public class Usuario implements Serializable {
     private String pais;
     
     public boolean ehNovo() {
-        if (this.id == null) {
-            return true;
-        } else if (this.id != null && this.id > 0) {
-            return false;
-        }
-        return id == null;
+        return id == 0;
     }
     
-    public Long getId() {
+    public int getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getUsuario() {

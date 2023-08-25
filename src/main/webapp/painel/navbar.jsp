@@ -16,7 +16,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active text-white" aria-current="page"
-                       href="<%= request.getContextPath() %>/painel/relatorio.jsp">Banco De Usuários</a>
+                      href="<%= request.getContextPath() %>/listaUsuarios.jsp">Banco De Usuários</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
