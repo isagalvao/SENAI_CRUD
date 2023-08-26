@@ -109,22 +109,25 @@ public class UsuarioRepository {
 	    return res.getBoolean("EXISTE");
 	}
 	
-	public boolean editarUsuario(int id, String nome, String email, String password) {
+	public boolean editarUsuario(int id, String nome, String email, String senha, String pais) {
 	    try {
-	        String sql = "UPDATE usuarios SET nome = ?, email = ?, password = ? WHERE id = ?";
+	        String sql = "UPDATE usuario SET nome = ?, email = ?, password = ?, pais = ? WHERE id = ?";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        stmt.setString(1, nome);
 	        stmt.setString(2, email);
-	        stmt.setString(3, password);
-	        stmt.setInt(4, id);
+	        stmt.setString(3, senha);
+	        stmt.setString(4, pais);
+	        stmt.setInt(5, id);
 
 	        int rowsAffected = stmt.executeUpdate();
+	        conn.commit();
 	        return rowsAffected > 0;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return false;
 	    }
 	}
+
 	
 	public String obterNomeUsuario(String usuario) {
 	    String nomeUsuario = null;

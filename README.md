@@ -1,5 +1,7 @@
 # SENAI_CRUD
 
+Desenvolvimento de um projeto MVP (Minimum Viable Product) com o propósito de solucionar o desafio proposto pelo Senai, no curso técnico de Desenvolvimento de Sistemas. O projeto consiste em um CRUD, seguindo os princípios da arquitetura MVC (Model-View-Controller), com foco nos usuários.
+
 ### `Processo de criação do projeto:`
 
 - [x] Criação estilo Html;
@@ -14,8 +16,8 @@
 
  `O que falta ser desenvolvido (sa4):`
  
-- [ ] Edição de usuários;
-- [ ] Deleção de usuários;
+- [x] Edição de usuários;
+- [x] Deleção de usuários;
       
 ## Descrição
 

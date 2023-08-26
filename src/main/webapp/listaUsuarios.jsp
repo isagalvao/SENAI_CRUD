@@ -13,8 +13,11 @@
 <body>
 
 	<div class="container mt-5">
-		<h1 class="mb-4">Listagem de Usuários</h1>
+		<div class="d-flex justify-content-between align-items-center">
+			<h1 class="mb-4">Listagem de Usuários</h1>
+			<a href="index.jsp"><button class="btn btn-dark">Home</button></a>
 
+		</div>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -38,10 +41,11 @@
 					<td><%=usuario.getEmail()%></td>
 					<td><%=usuario.getPais()%></td>
 
-					<td><a href="editarUsuario.jsp?id=<%=usuario.getId()%>"
-						class="btn btn-primary">Editar</a> <a
-						href="ServletUsuario?acao=excluir&idExcluir=<%=usuario.getId()%>"
-						class="btn btn-danger">Excluir</a></td>
+					<td>
+					<a href="editarUsuario.jsp?id=<%=usuario.getId()%>"
+						class="btn btn-primary">Editar</a>
+					 <a href="excluirUsuario.jsp?ID=<%=usuario.getId()%>" class="btn btn-danger" onclick="exibirModalExclusao(<%=usuario.getId()%>)">Excluir</a>
+					</td>
 				</tr>
 				<%
 				}
@@ -51,12 +55,6 @@
 	</div>
 
 	<script>
-		function excluirUsuario(userId) {
-			if (confirm("Tem certeza que deseja excluir este usuário?")) {
-				window.location.href = "ServletUsuario?acao=excluir&idExcluir="
-						+ userId;
-			}
-		}
 	</script>
 
 	<!-- Inclua os scripts do Bootstrap no final do corpo -->

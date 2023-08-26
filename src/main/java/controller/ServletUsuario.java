@@ -30,7 +30,7 @@ public class ServletUsuario extends HttpServlet {
             Usuario user01 = new Usuario();
             
             if (acao != null && acao.equals("excluir")) {
-            	int idExcluir = Integer.parseInt(request.getParameter("idExcluir"));
+            	int idExcluir = Integer.parseInt(request.getParameter("id"));
                 boolean excluidoComSucesso = userRepository.excluirUsuario(idExcluir);
 
                 if (excluidoComSucesso) {
@@ -39,13 +39,13 @@ public class ServletUsuario extends HttpServlet {
                     mensagem = "Erro ao excluir o usuário.";
                 }
             } else if (acao != null && acao.equals("editar")) {
-            	int id = Integer.parseInt(request.getParameter("id"));
+                int id = Integer.parseInt(request.getParameter("id"));
                 String nome = request.getParameter("nome");
                 String email = request.getParameter("email");
                 String senha = request.getParameter("senha");
                 String pais = request.getParameter("pais");
                 
-                boolean editadoComSucesso = userRepository.editarUsuario(id, nome, email, senha);
+                boolean editadoComSucesso = userRepository.editarUsuario(id, nome, email, senha, pais);
                 
                 if (editadoComSucesso) {
                     mensagem = "Usuário editado com sucesso!";
@@ -73,7 +73,7 @@ public class ServletUsuario extends HttpServlet {
                         user01.setNome(nome);
                         user01.setEmail(email);
                         user01.setPais(pais);
-                        userRepository.editarUsuario(user01.getId(), nome, email, pais);
+                        userRepository.editarUsuario(user01.getId(), nome, email, password, pais);
                     }
                     user01 = userRepository.insereUsuario(user01);
                 }
