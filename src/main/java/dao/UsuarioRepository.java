@@ -22,23 +22,18 @@ public class UsuarioRepository {
 	    List<Usuario> usuarios = new ArrayList<>();
 
 	    try {
-	        String sql = "SELECT nome, email, pais, password FROM usuarios";
+	        String sql = "SELECT id, nome, email, pais, password FROM usuario";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
 	            Usuario usuario = new Usuario();
-	            usuario.setNome(rs.getString("nome")); //
+	            usuario.setId(rs.getInt("id"));
+	            usuario.setNome(rs.getString("nome"));
 	            usuario.setEmail(rs.getString("email"));
 	            usuario.setPais(rs.getString("pais"));
 	            usuario.setPassword(rs.getString("password"));
 	            usuarios.add(usuario);
-	            
-	            
-	            System.out.println("Nome: " + usuario.getNome());
-	            System.out.println("Email: " + usuario.getEmail());
-	            System.out.println("País: " + usuario.getPais());
-	            System.out.println("------------------------");
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -48,15 +43,15 @@ public class UsuarioRepository {
 	}
 	
 	
-	  public boolean excluirUsuario(Long id) {
+	  public boolean excluirUsuario(int id) {
 	        Connection conn = null;
 	        PreparedStatement stmt = null;
 	        
 	        try {
 	            conn = ConexaoBanco.getConnection(); 
-	            String sql = "DELETE FROM usuarios WHERE id = ?";
+	            String sql = "DELETE FROM usuario WHERE id = ?";
 	            stmt = conn.prepareStatement(sql);
-	            stmt.setLong(1, id);
+	            stmt.setInt(1, id);
 	            
 	            int rowsAffected = stmt.executeUpdate();
 	            return rowsAffected > 0;
@@ -114,22 +109,25 @@ public class UsuarioRepository {
 	    return res.getBoolean("EXISTE");
 	}
 	
-	public boolean editarUsuario(Long id, String nome, String email, String password) {
+	public boolean editarUsuario(int id, String nome, String email, String senha, String pais) {
 	    try {
-	        String sql = "UPDATE usuarios SET nome = ?, email = ?, password = ? WHERE id = ?";
+	        String sql = "UPDATE usuario SET nome = ?, email = ?, password = ?, pais = ? WHERE id = ?";
 	        PreparedStatement stmt = conn.prepareStatement(sql);
 	        stmt.setString(1, nome);
 	        stmt.setString(2, email);
-	        stmt.setString(3, password);
-	        stmt.setLong(4, id);
+	        stmt.setString(3, senha);
+	        stmt.setString(4, pais);
+	        stmt.setInt(5, id);
 
 	        int rowsAffected = stmt.executeUpdate();
+	        conn.commit();
 	        return rowsAffected > 0;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return false;
 	    }
 	}
+
 	
 	public String obterNomeUsuario(String usuario) {
 	    String nomeUsuario = null;
@@ -143,12 +141,33 @@ public class UsuarioRepository {
 	            nomeUsuario = rs.getString("nome");
 	        }
 	        
-	        stmt.close(); // Importante fechar o PreparedStatement após o uso
+	        stmt.close();
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
 	    return nomeUsuario;
 	}
+	public Usuario buscarUsuarioPorId(int id) {
+	    try {
+	        String sql = "SELECT id, nome, email, pais, password FROM usuario WHERE id = ?";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setInt(1, id);
+	        ResultSet rs = stmt.executeQuery();
 
+	        if (rs.next()) {
+	            Usuario usuario = new Usuario();
+	            usuario.setId(rs.getInt("id"));
+	            usuario.setNome(rs.getString("nome"));
+	            usuario.setEmail(rs.getString("email"));
+	            usuario.setPais(rs.getString("pais"));
+	            usuario.setPassword(rs.getString("password"));
+	            return usuario;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return null; // Retorna null se o usuário não for encontrado
+	}
 	
 }
