@@ -6,22 +6,25 @@ Desenvolvimento de um projeto MVP (Minimum Viable Product) com o propósito de s
 
 - [x] Criação estilo Html;
 - [x] Criação estilo bootstrap;
+- [x] Servidor Tomcat;
+- [x] Servlet e JSP;
+- [x] IDE Eclipse;
+- [x] MySQL;
+- [x] MVC (Model View Controller);
 - [x] Criação das funcionalidades com Java.
 
- `O que já foi desenvolvido:`
+ `O que foi desenvolvido:`
 
 - [x] Tela inicial;
-- [x] Tela de login do usuários; 
-- [x] Criação de usuários e sua respectiva tela;
-
- `O que falta ser desenvolvido (sa4):`
- 
+- [x] Tela de login do usuários;
+- [x] Tela de administração; 
+- [x] Criação de usuários e sua respectiva tela; 
 - [x] Edição de usuários;
 - [x] Deleção de usuários;
+- [x] Visualização de usuários;
       
 ## Descrição
 
-- Projeto em desenvolvimento.
 - Acesse o video para entender melhor: XX
   
 ## 🤝 Colaboradores
