@@ -23,9 +23,6 @@ Desenvolvimento de um projeto MVP (Minimum Viable Product) com o propósito de s
 - [x] Deleção de usuários;
 - [x] Visualização de usuários;
       
-## Descrição
-
-- Acesse o video para entender melhor: XX
   
 ## 🤝 Colaboradores
 
