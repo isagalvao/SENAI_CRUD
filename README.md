@@ -22,7 +22,12 @@ Desenvolvimento de um projeto MVP (Minimum Viable Product) com o propósito de s
 - [x] Edição de usuários;
 - [x] Deleção de usuários;
 - [x] Visualização de usuários;
-      
+
+## NOSSOS REPOSITÓRIOS
+
+-[REPOSITORIO SA03 - CRUD USUARIO COMPLETO](https://github.com/isagalvao/SENAI_CRUD)
+
+-[REPOSITORIO SA04 - CRUD LIVRO COMPLETO](https://github.com/franciscoaiolfi/sa04Senai)
   
 ## 🤝 Colaboradores
 
